@@ -1,34 +1,30 @@
-import { withRouter, Link } from 'react-router-dom';
+import {withRouter, Link} from 'react-router-dom';
 import React from 'react';
-import { inject, observer } from 'mobx-react';
+import {inject, observer} from 'mobx-react';
+import LoginAlert from './Alert';
+import userStore from '../stores/userStore';
 
-@inject('authStore')
+@inject ('authStore', 'userStore')
 @withRouter
 @observer
 export default class Login extends React.Component {
-
-  componentWillUnmount() {
-    this.props.authStore.reset();
+  componentWillUnmount () {
+    this.props.authStore.reset ();
   }
-
-  handleEmailChange = e => this.props.authStore.setEmail(e.target.value);
-  handlePasswordChange = e => this.props.authStore.setPassword(e.target.value);
-  handleSubmitForm = (e) => {
-    e.preventDefault();
-    this.props.authStore.login()
-      .then(() => this.props.history.replace('/'));
+  handleEmailChange = e => this.props.authStore.setEmail (e.target.value);
+  handlePasswordChange = e => this.props.authStore.setPassword (e.target.value);
+  handleSubmitForm = async e => {
+    await e.preventDefault ();
+    await this.props.authStore.login ();
+    await this.props.history.replace ('/settings');
   };
-  handleClick = ()=> {
-    this.props.authStore.test()
-  }
-  render() {
-    const { values, errors, inProgress } = this.props.authStore;
-
+  render () {
+    const {values} = this.props.authStore;
+    const {authStatus} = this.props.userStore;
     return (
       <div className="auth-page">
         <div className="container page">
           <div className="row">
-
             <div className="col-md-6 offset-md-3 col-xs-12">
               <h1 className="text-xs-center">Sign In</h1>
               <p className="text-xs-center">
@@ -36,14 +32,16 @@ export default class Login extends React.Component {
                   Need an account?
                 </Link>
               </p>
-
-              <form onSubmit={this.handleSubmitForm}>
+              {authStatus
+                ? <LoginAlert message="กรุณาตรวจสอบรหัสผ่านอีกครั้ง" />
+                : false}
+              <form onSubmit={this.handleSubmitForm} autoComplete="on">
                 <fieldset>
 
                   <fieldset className="form-group">
                     <input
                       className="form-control form-control-lg"
-                      type="email"
+                      type="text"
                       placeholder="Email"
                       value={values.email}
                       onChange={this.handleEmailChange}
@@ -63,15 +61,13 @@ export default class Login extends React.Component {
                   <button
                     className="btn btn-lg btn-primary pull-xs-right"
                     type="submit"
-                    disabled={inProgress}
+                    // disabled={inProgress}
                   >
                     Sign in
                   </button>
                 </fieldset>
               </form>
             </div>
-            <button onClick={this.handleClick}>click</button>
-
           </div>
         </div>
       </div>

@@ -10,11 +10,13 @@ import App from './components/App';
 import authStore from './stores/authStore';
 import commonStore from './stores/commonStore';
 import userStore from './stores/userStore';
+import uiStore from './stores/uiStore';
 
 const stores = {
   authStore,
   commonStore,
   userStore,
+  uiStore,
 };
 
 // For easier debugging

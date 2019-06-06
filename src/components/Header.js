@@ -1,17 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { inject, observer } from 'mobx-react';
+import {Link} from 'react-router-dom';
+import {inject, observer} from 'mobx-react';
 
 const LoggedOutView = props => {
   if (!props.currentUser) {
     return (
       <ul className="nav navbar-nav pull-xs-right">
-
-        <li className="nav-item">
-          <Link to="/" className="nav-link">
-            Home
-          </Link>
-        </li>
 
         <li className="nav-item">
           <Link to="/login" className="nav-link">
@@ -55,10 +49,7 @@ const LoggedInView = props => {
         </li>
 
         <li className="nav-item">
-          <Link
-            to={`/@${props.currentUser.username}`}
-            className="nav-link"
-          >
+          <Link to={`/@${props.currentUser.username}`} className="nav-link">
             <img src={props.currentUser.image} className="user-pic" alt="" />
             {props.currentUser.username}
           </Link>
@@ -71,16 +62,16 @@ const LoggedInView = props => {
   return null;
 };
 
-@inject('userStore', 'commonStore')
+@inject ('userStore', 'commonStore')
 @observer
 class Header extends React.Component {
-  render() {
+  render () {
     return (
       <nav className="navbar navbar-light">
         <div className="container">
 
           <Link to="/" className="navbar-brand">
-            {this.props.commonStore.appName.toLowerCase()}
+            {this.props.commonStore.appName.toLowerCase ()}
           </Link>
 
           <LoggedOutView currentUser={this.props.userStore.currentUser} />

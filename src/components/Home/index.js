@@ -12,7 +12,7 @@ export default class Home extends React.Component {
   }
 
   render() {
-    const { tags, token, appName } = this.props.commonStore;
+    const {token, appName } = this.props.commonStore;
     return (
       <div className="home-page">
 

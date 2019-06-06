@@ -8,8 +8,8 @@ class AuthStore {
   @observable errors = undefined;
   @observable values = {
     username: '',
-    email: '',
-    password: '',
+    email: 'admin@leaderplanet.co.th',
+    password: 'admin',
   };
 
   @action setUsername (username) {
@@ -29,35 +29,20 @@ class AuthStore {
     this.values.email = '';
     this.values.password = '';
   }
-  @action test () {
-    _API
-      .Login (`admin`, `asmin`)
-      .then (res => {
-        console.log (res);
-      })
-      .catch (err => {
-        console.log (`Login Error :`, err);
-      });
-  }
   @action login () {
     this.inProgress = true;
     this.errors = undefined;
-    return agent.Auth
-      .login (this.values.email, this.values.password)
-      .then (({user}) => commonStore.setToken (user.token))
-      .then (() => userStore.pullUser ())
-      .catch (
-        action (err => {
-          this.errors =
-            err.response && err.response.body && err.response.body.errors;
-          throw err;
-        })
-      )
-      .finally (
-        action (() => {
-          this.inProgress = false;
-        })
-      );
+    const {email, password} = this.values;
+    _API
+      .Login (email, password)
+      .then (res => {
+        userStore.pullUser (res, true, true);
+        console.log (`succress`, res);
+      })
+      .catch (err => {
+        userStore.pullUser (err, false, false);
+        console.log (`Login Error :`, err);
+      });
   }
 
   @action register () {

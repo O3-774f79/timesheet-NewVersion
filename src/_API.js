@@ -12,7 +12,7 @@ const Login = async (user, pass) => {
       },
       axiosConfig
     );
-    return dataRes
+    return dataRes.data
   } catch (e) {
     return e
   }

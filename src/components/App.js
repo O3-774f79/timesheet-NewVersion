@@ -8,8 +8,9 @@ import Home from './Home';
 import Login from './Login';
 import Register from './Register';
 import Settings from './Settings';
-
-@inject ('userStore', 'commonStore')
+import Loading from './Loading';
+import NoMatch from './NotFound'
+@inject ('userStore', 'commonStore','uiStore')
 @withRouter
 @observer
 export default class App extends React.Component {
@@ -19,28 +20,25 @@ export default class App extends React.Component {
     }
   }
 
-  componentDidMount () {
-    if (this.props.commonStore.token) {
-      this.props.userStore
-        .pullUser ()
-        .finally (() => this.props.commonStore.setAppLoaded ());
-    }
-  }
+  componentDidMount () {}
 
   render () {
-    if (this.props.commonStore.appLoaded) {
-      return (
-        <div>
+    // if (this.props.commonStore.appLoaded) {
+    return (
+      <div>
+        <Loading spinning={this.props.uiStore.loading} size={'large'}>
           <Header />
           <Switch>
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <PrivateRoute path="/settings" component={Settings} />
             <Route path="/" component={Home} />
+            <Route component={NoMatch} />
           </Switch>
-        </div>
-      );
-    }
-    return <Header />;
+        </Loading>
+      </div>
+    );
+    // }
+    // return <Header />;
   }
 }
