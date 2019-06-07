@@ -29,20 +29,21 @@ class AuthStore {
     this.values.email = '';
     this.values.password = '';
   }
-  @action login () {
+  @action async login () {
     this.inProgress = true;
     this.errors = undefined;
     const {email, password} = this.values;
-    _API
-      .Login (email, password)
-      .then (res => {
-        userStore.pullUser (res, true, true);
-        console.log (`succress`, res);
-      })
-      .catch (err => {
-        userStore.pullUser (err, false, false);
-        console.log (`Login Error :`, err);
-      });
+    try {
+      const dataRes = await _API.Login (email, password);
+      await userStore.pullUser (dataRes, true);
+      (await dataRes)
+        ? await userStore.errorPullUser (true)
+        : await userStore.errorPullUser (false);
+      await console.log (dataRes);
+    } catch (e) {
+      await console.log (`login error :`, e);
+      return e;
+    }
   }
 
   @action register () {

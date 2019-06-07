@@ -2,16 +2,18 @@ import {observable, action} from 'mobx';
 
 class UserStore {
   @observable authStatus = false;
-  @observable authorize = false;
+  @observable authorize = true;
   @observable currentUser = {};
   @observable loadingUser;
   @observable updatingUser;
   @observable updatingUserErrors;
 
-  @action pullUser (user, status, authorize) {
+  @action pullUser (user, status) {
     this.authStatus = status;
     this.currentUser = user;
-    this.authorize = authorize;
+  }
+  @action errorPullUser (status) {
+    this.authorize = status;
   }
 }
 

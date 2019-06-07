@@ -16,7 +16,9 @@ export default class Login extends React.Component {
   handleSubmitForm = async e => {
     await e.preventDefault ();
     await this.props.authStore.login ();
-    await this.props.history.replace ('/settings');
+    (await this.props.userStore.authorize)
+      ? await this.props.history.replace ('/settings')
+      : await this.props.history.replace ('/login');
   };
   render () {
     const {values} = this.props.authStore;
