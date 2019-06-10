@@ -38,7 +38,9 @@ class Inbox extends React.Component {
         if (tags === 'ค่ารักษาพยาบาล') {
           color = 'green';
         } else if (tags === 'ค่าเดินทาง') {
-          color = 'lime';
+          color = 'yellow';
+        } else if (tags === 'ค่าโทรศัพท์') {
+          color = 'aquamarine';
         }
 
         return (

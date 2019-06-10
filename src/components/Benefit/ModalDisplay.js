@@ -8,7 +8,7 @@ const styles = {
       margin: 5,
     },
     input: {
-      width: '30%',
+      width: 300,
     },
     row: {
       display: 'flex',
@@ -65,7 +65,7 @@ export default class ModalDisplay extends React.Component {
                   จำนวนเงิน
                 </label>
                 <Input
-                  style={{width: 200}}
+                  style={{width: 100}}
                   readOnly={true}
                   value={this.props.dataContent.value}
                 />
@@ -82,7 +82,7 @@ export default class ModalDisplay extends React.Component {
               <div style={styles.layout.row}>
                 <label style={styles.layout.label}>เลขที่ใบเสร็จ</label>
                 <Input
-                  style={{width: 200}}
+                  style={{width: 100}}
                   readOnly={true}
                   value={this.props.dataContent.billNumber}
                 />
@@ -90,7 +90,7 @@ export default class ModalDisplay extends React.Component {
                   วันที่ออกใบเสร็จ
                 </label>
                 <Input
-                  style={{width: 200}}
+                  style={{width: 100}}
                   readOnly={true}
                   value={this.props.dataContent.billDate}
                 />
@@ -107,10 +107,80 @@ export default class ModalDisplay extends React.Component {
             <span>
               <div style={styles.layout.row}>
                 <label style={styles.layout.label}>จาก</label>
-                <Input style={styles.layout.input} readOnly={true} />
-                <label style={{margin: 5}}>ถึง</label>
-                <Input style={styles.layout.input} readOnly={true} />
-
+                <Input
+                  style={styles.layout.input}
+                  readOnly={true}
+                  value={this.props.dataContent.symptom}
+                />
+                <label style={{textAlign: 'end', width: 80, margin: 5}}>
+                  ถึง
+                </label>
+                <Input
+                  style={styles.layout.input}
+                  readOnly={true}
+                  value={this.props.dataContent.hospitalname}
+                />
+              </div>
+              <div style={styles.layout.row}>
+                <label style={styles.layout.label}>วันที่</label>
+                <Input
+                  style={styles.layout.input}
+                  readOnly={true}
+                  value={this.props.dataContent.startDate}
+                />
+                <label style={{textAlign: 'end', width: 80, margin: 5}}>
+                  ถึงวันที่
+                </label>
+                <Input
+                  style={styles.layout.input}
+                  readOnly={true}
+                  value={this.props.dataContent.endDate}
+                />
+              </div>
+              <div style={styles.layout.row}>
+                <label style={styles.layout.label}>ประเภทการเดินทาง</label>
+                <Input
+                  style={styles.layout.input}
+                  readOnly={true}
+                  value={this.props.dataContent.transitType}
+                />
+              </div>
+              <div style={styles.layout.row}>
+                <label style={styles.layout.label}>ระยะทาง</label>
+                <Input
+                  style={styles.layout.input}
+                  readOnly={true}
+                  value={this.props.dataContent.lenge}
+                />
+                <label style={{margin: 5}}>km</label>
+                <label style={{textAlign: 'end', width: 80, margin: 5}}>
+                  คิดเป็นเงิน
+                </label>
+                <Input
+                  style={styles.layout.input}
+                  readOnly={true}
+                  value={this.props.dataContent.value}
+                />
+              </div>
+              <div style={styles.layout.row}>
+                <label style={styles.layout.label}>เลขที่ใบเสร็จ</label>
+                <Input
+                  style={{width: 100}}
+                  readOnly={true}
+                  value={this.props.dataContent.billNumber}
+                />
+                <label style={{width: 100, textAlign: 'end', margin: 5}}>
+                  วันที่ออกใบเสร็จ
+                </label>
+                <Input
+                  style={{width: 100}}
+                  readOnly={true}
+                  value={this.props.dataContent.billDate}
+                />
+              </div>
+              <div style={styles.layout.row}>
+                <label style={styles.layout.label}>เอกสารแนบ</label>
+                <label style={{margin: 5}}>ใบเสร็จ.jpg</label>
               </div>
             </span>
           );
@@ -119,7 +189,7 @@ export default class ModalDisplay extends React.Component {
     };
     console.log ('props', this.props.dataContent);
     return (
-      <React.Fragment>
+      <div>
         <div style={styles.layout.row}>
           <label style={styles.layout.label}>ประเภทการเบิก</label>
           <Input
@@ -129,7 +199,7 @@ export default class ModalDisplay extends React.Component {
           />
         </div>
         {renderContent (this.props.dataContent.benefitType)}
-      </React.Fragment>
+      </div>
     );
   }
 }
