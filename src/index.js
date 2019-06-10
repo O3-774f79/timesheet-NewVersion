@@ -11,12 +11,14 @@ import authStore from './stores/authStore';
 import commonStore from './stores/commonStore';
 import userStore from './stores/userStore';
 import uiStore from './stores/uiStore';
+import inboxBenefitStore from './stores/inboxBenefitStore';
 
 const stores = {
   authStore,
   commonStore,
   userStore,
   uiStore,
+  inboxBenefitStore,
 };
 
 // For easier debugging

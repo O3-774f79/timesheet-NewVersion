@@ -31,18 +31,18 @@ const LoggedInView = props => {
       <ul className="nav navbar-nav pull-xs-right">
 
         <li className="nav-item">
-          <Link to="/" className="nav-link">
-            Home
+          <Link to="/inbox" className="nav-link">
+            inbox
           </Link>
         </li>
 
         <li className="nav-item">
-          <Link to="/editor" className="nav-link">
-            <i className="ion-compose" />&nbsp;New Post
+          <Link to="/Benefit" className="nav-link">
+            <i className="ion-compose" />&nbsp;Benefit
           </Link>
         </li>
 
-        <li className="nav-item">
+        {/* <li className="nav-item">
           <Link to="/settings" className="nav-link">
             <i className="ion-gear-a" />&nbsp;Settings
           </Link>
@@ -53,7 +53,7 @@ const LoggedInView = props => {
             <img src={props.currentUser.image} className="user-pic" alt="" />
             {props.currentUser.username}
           </Link>
-        </li>
+        </li> */}
 
       </ul>
     );
@@ -71,7 +71,7 @@ class Header extends React.Component {
         <div className="container">
 
           <Link to="/" className="navbar-brand">
-            {this.props.commonStore.appName.toLowerCase ()}
+            {this.props.commonStore.appName.toUpperCase ()}
           </Link>
 
           <LoggedOutView currentUser={this.props.userStore.currentUser} />

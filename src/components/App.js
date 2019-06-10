@@ -9,8 +9,10 @@ import Login from './Login';
 import Register from './Register';
 import Settings from './Settings';
 import Loading from './Loading';
-import NoMatch from './NotFound'
-@inject ('userStore', 'commonStore','uiStore')
+import NoMatch from './NotFound';
+import Inbox from './Inbox';
+import Benefit from './Benefit';
+@inject ('userStore', 'commonStore', 'uiStore')
 @withRouter
 @observer
 export default class App extends React.Component {
@@ -32,6 +34,8 @@ export default class App extends React.Component {
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <PrivateRoute path="/settings" component={Settings} />
+            <Route path="/inbox" component={Inbox} />
+            <Route path="/benefit" component={Benefit} />
             <Route path="/" component={Home} />
             <Route component={NoMatch} />
           </Switch>
