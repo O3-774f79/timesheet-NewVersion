@@ -23,6 +23,7 @@ class InboxBenefitStore {
       symptom: 'ปวดท้อง',
       transitType: 'รถส่วนตัว',
       lenge: 300,
+      status: 'รอการอนุมัติ',
     },
     {
       name: 'นาย มั่นคง มุ่งมั่น',
@@ -45,6 +46,7 @@ class InboxBenefitStore {
       symptom: 'กรุงเทพ',
       transitType: 'รถส่วนตัว',
       lenge: 70,
+      status: 'รอการอนุมัติ',
     },
     {
       name: 'นาย มั่นคง มุ่งมั่น',
@@ -67,6 +69,7 @@ class InboxBenefitStore {
       symptom: 'ปวดท้อง',
       transitType: 'รถส่วนตัว',
       lenge: 300,
+      status: 'รอการอนุมัติ',
     },
     {
       name: 'นาย มั่นคง มุ่งมั่น',
@@ -89,6 +92,7 @@ class InboxBenefitStore {
       symptom: 'ปวดท้อง',
       transitType: 'รถส่วนตัว',
       lenge: 300,
+      status: 'รอการอนุมัติ',
     },
   ];
   @action pushDatalist (t) {

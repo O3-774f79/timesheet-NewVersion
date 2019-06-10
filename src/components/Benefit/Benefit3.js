@@ -44,9 +44,9 @@ const styles = {
 };
 @inject ('inboxBenefitStore')
 @observer
-export default class Benefit2 extends React.Component {
+export default class Benefit3 extends React.Component {
   state = {
-    benefittype: 'ค่าเดินทาง',
+    benefittype: 'ค่าโทรศัพท์',
     Description: 'OPD',
     moneyTran: 'THB',
     valueBenefitType: 'ผู้ปฎิบัติงาน',
@@ -54,20 +54,13 @@ export default class Benefit2 extends React.Component {
     wifeName: 'นาง ยอดรัก กล้าหาญ',
     childName: 'นาย สมชาย กล้าหาญ',
     moneyValue: 0,
-    lenge: 0,
     startDate: '',
     endDate: '',
     billNumber: 0,
     billDate: '',
     hospitalname: '',
     symptom: '',
-    transitType: 'รถส่วนตัว',
     personalData: {},
-  };
-  ontransitTypeChange = e => {
-    this.setState ({
-      transitType: e,
-    });
   };
   onHospitalNameChange = e => {
     this.setState ({
@@ -119,17 +112,11 @@ export default class Benefit2 extends React.Component {
       moneyValue: e.target.value,
     });
   };
-  onLengeChange = e => {
-    this.setState ({
-      lenge: e.target.value,
-    });
-  };
   onHandleClick = () => {
-    alert (JSON.stringify (this.state));
     this.props.inboxBenefitStore.pushDatalist (this.state);
     this.setState ({
       date: '',
-      benefittype: 'ค่าเดินทาง',
+      benefittype: 'ค่าโทรศัพท์',
       Description: 'OPD',
       moneyTran: 'THB',
       valueBenefitType: 'ผู้ปฎิบัติงาน',
@@ -141,11 +128,10 @@ export default class Benefit2 extends React.Component {
       endDate: '',
       billNumber: 0,
       billDate: '',
-      lenge: 0,
       hospitalname: '',
       symptom: '',
-      transitType: '',
     });
+    alert (JSON.stringify (this.state));
   };
   componentWillMount () {
     var curday = function (sp) {
@@ -158,14 +144,13 @@ export default class Benefit2 extends React.Component {
       if (mm < 10) mm = '0' + mm;
       return dd + sp + mm + sp + yyyy;
     };
-    this.setState (this.props.data);
     this.setState ({personalData: this.props.personalData, date: curday ('/')});
   }
   render () {
     return (
       <React.Fragment>
         <div style={{marginTop: 20}}>
-          <h2 style={{textAlign: 'center'}}>ขอเบิกค่าเดินทาง</h2>
+          <h2 style={{textAlign: 'center'}}>เบิกค่าโทรศัพท์</h2>
           <div style={styles.layout.row}>
             <label style={styles.layout.label}>
               วันที่
@@ -175,7 +160,7 @@ export default class Benefit2 extends React.Component {
             <DatePicker onChange={this.onChangeEndDatepicker} />
           </div>
           <div style={styles.layout.row}>
-            <label style={styles.layout.label}>จาก</label>
+            <label style={styles.layout.label}>รายละเอียดค่าใช้จ่าย</label>
             <Input
               style={styles.layout.input}
               value={this.state.symptom}
@@ -183,36 +168,7 @@ export default class Benefit2 extends React.Component {
             />
           </div>
           <div style={styles.layout.row}>
-            <label style={styles.layout.label}>
-              ถึง
-            </label>
-            <Input
-              style={styles.layout.input}
-              value={this.state.hospitalname}
-              onChange={this.onHospitalNameChange}
-            />
-          </div>
-          <div style={styles.layout.row}>
-            <label style={styles.layout.label}>ประเภทการเดินทาง</label>
-            <Select
-              placeholder=""
-              onChange={this.ontransitTypeChange}
-              style={{width: 120}}
-              value={this.state.transitType}
-            >
-              <Option value="รถส่วนตัว">รถส่วนตัว</Option>
-              <Option value="รถสาธารณะ">รถสาธารณะ</Option>
-            </Select>
-          </div>
-          <div style={styles.layout.row}>
-            <label style={styles.layout.label}>ระยะทาง</label>
-            <Input
-              style={{width: 100}}
-              value={this.state.lenge}
-              onChange={this.onLengeChange}
-            />
-            <label style={{margin: 5}}>km</label>
-            <label style={{margin: 5}}>จำนวนเงิน</label>
+            <label style={styles.layout.label}>จำนวนเงิน</label>
             <Input
               style={{width: 100}}
               value={this.state.moneyValue}
@@ -227,16 +183,6 @@ export default class Benefit2 extends React.Component {
               <Option value="THB">THB</Option>
               <Option value="MMK">MMK</Option>
             </Select>
-          </div>
-          <div style={styles.layout.row}>
-            <label style={styles.layout.label}>เลขที่ใบเสร็จ</label>
-            <Input
-              style={{width: '10%'}}
-              onChange={this.onChangeBillNumber}
-              value={this.state.billNumber}
-            />
-            <label style={{margin: 5}}>วันที่ออกใบเสร็จ</label>
-            <DatePicker onChange={this.onChangeBillDatepicker} />
           </div>
           <div style={styles.layout.row}>
             <label style={styles.layout.label}>เอกสารแนบ</label>
@@ -266,7 +212,6 @@ export default class Benefit2 extends React.Component {
                   ส่งอนุมัติ
                 </Button>
               </div>}
-
         </div>
       </React.Fragment>
     );
