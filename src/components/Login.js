@@ -2,7 +2,6 @@ import {withRouter, Link} from 'react-router-dom';
 import React from 'react';
 import {inject, observer} from 'mobx-react';
 import LoginAlert from './Alert';
-import userStore from '../stores/userStore';
 
 @inject ('authStore', 'userStore')
 @withRouter
@@ -10,6 +9,9 @@ import userStore from '../stores/userStore';
 export default class Login extends React.Component {
   componentWillUnmount () {
     this.props.authStore.reset ();
+  }
+  componentWillMount () {
+    this.props.authStore.logout ();
   }
   handleEmailChange = e => this.props.authStore.setEmail (e.target.value);
   handlePasswordChange = e => this.props.authStore.setPassword (e.target.value);

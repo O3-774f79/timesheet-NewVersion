@@ -12,6 +12,7 @@ import Loading from './Loading';
 import NoMatch from './NotFound';
 import Inbox from './Inbox';
 import Benefit from './Benefit';
+import Timesheet from './Timesheet';
 @inject ('userStore', 'commonStore', 'uiStore')
 @withRouter
 @observer
@@ -36,7 +37,8 @@ export default class App extends React.Component {
             <PrivateRoute path="/settings" component={Settings} />
             <PrivateRoute path="/inbox" component={Inbox} />
             <PrivateRoute path="/benefit" component={Benefit} />
-            <Route path="/" component={Home} />
+            <PrivateRoute path="/timesheet" component={Timesheet} />
+            <Route path="/" component={Login} />
             <Route component={NoMatch} />
           </Switch>
         </Loading>

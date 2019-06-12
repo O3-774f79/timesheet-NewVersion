@@ -3,7 +3,7 @@ import {observable, action} from 'mobx';
 class UserStore {
   @observable authStatus = false;
   @observable authorize = true;
-  @observable currentUser = {};
+  @observable currentUser;
   @observable loadingUser;
   @observable updatingUser;
   @observable updatingUserErrors;
@@ -14,6 +14,11 @@ class UserStore {
   }
   @action errorPullUser (status) {
     this.authorize = status;
+  }
+  @action resetUser () {
+    this.authStatus = false;
+    this.authorize = true;
+    this.currentUser;
   }
 }
 
