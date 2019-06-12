@@ -3,26 +3,22 @@ import {Link} from 'react-router-dom';
 import {inject, observer} from 'mobx-react';
 import {Divider, Icon} from 'antd';
 const LoggedOutView = props => {
-  if (!props.currentUser) {
-    return (
-      <ul className="nav navbar-nav pull-xs-right">
+  return (
+    <ul className="nav navbar-nav pull-xs-right">
+      <li className="nav-item">
+        <Link to="/login" className="nav-link">
+          Sign in
+        </Link>
+      </li>
 
-        <li className="nav-item">
-          <Link to="/login" className="nav-link">
-            Sign in
-          </Link>
-        </li>
+      <li className="nav-item">
+        <Link to="/register" className="nav-link">
+          Sign up
+        </Link>
+      </li>
 
-        <li className="nav-item">
-          <Link to="/register" className="nav-link">
-            Sign up
-          </Link>
-        </li>
-
-      </ul>
-    );
-  }
-  return null;
+    </ul>
+  );
 };
 
 const LoggedInView = props => {
@@ -44,8 +40,8 @@ const LoggedInView = props => {
           </Link>
         </li>
 
-        {/* <li className="nav-item">
-          <Link to="/settings" className="nav-link">
+        <li className="nav-item">
+          <Link to="/settings" className="nav-link" style={{color: 'black'}}>
             <i className="ion-gear-a" />&nbsp;Settings
           </Link>
         </li>
@@ -55,11 +51,10 @@ const LoggedInView = props => {
             <img src={props.currentUser.image} className="user-pic" alt="" />
             {props.currentUser.username}
           </Link>
-        </li> */}
+        </li>
       </ul>
     );
   }
-
   return null;
 };
 
@@ -74,13 +69,13 @@ class Header extends React.Component {
       >
         <div className="container">
 
-          <Link to="/inbox" className="navbar-brand">
+          <Link to="/" className="navbar-brand">
             {this.props.commonStore.appName.toUpperCase ()}
           </Link>
+          {this.props.userStore.currentUser
+            ? <LoggedOutView currentUser={this.props.userStore.currentUser} />
+            : <LoggedInView currentUser={this.props.userStore.currentUser} />}
 
-          <LoggedOutView currentUser={this.props.userStore.currentUser} />
-
-          <LoggedInView currentUser={this.props.userStore.currentUser} />
         </div>
       </nav>
     );

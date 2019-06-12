@@ -34,8 +34,8 @@ export default class App extends React.Component {
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <PrivateRoute path="/settings" component={Settings} />
-            <Route path="/inbox" component={Inbox} />
-            <Route path="/benefit" component={Benefit} />
+            <PrivateRoute path="/inbox" component={Inbox} />
+            <PrivateRoute path="/benefit" component={Benefit} />
             <Route path="/" component={Home} />
             <Route component={NoMatch} />
           </Switch>
