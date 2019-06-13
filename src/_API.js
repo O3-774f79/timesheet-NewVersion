@@ -33,10 +33,20 @@ const GetProjectType = async () => {
       `/ValueHelp/GetTypeProject`,
       axiosConfig
     );
-    console.log (`in service`, resProjectType.data);
     return resProjectType.data;
   } catch (e) {
     return e;
   }
 };
-export default {Login, GetProjectName, GetProjectType};
+const GetTimeSheet = async (date) => {
+  try {
+    const resTimesheet = await axios.get (
+      `/TimeSheet?date=` + date,
+      axiosConfig
+    );
+    return resTimesheet.data;
+  } catch (e) {
+    return e;
+  }
+};
+export default {Login, GetProjectName, GetProjectType, GetTimeSheet};

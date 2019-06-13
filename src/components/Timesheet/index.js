@@ -20,7 +20,7 @@ const axiosConfig = {withCredentials: true};
 const Option = Select.Option;
 const {TextArea} = Input;
 
-@inject ('uiStore')
+@inject ('uiStore', 'timeSheet')
 @observer
 export default class idnex extends PureComponent {
   state = {
@@ -51,7 +51,7 @@ export default class idnex extends PureComponent {
 
     workHours: [],
     projectName: [],
-    projectType: [],
+    projectTypes: [],
     datePicker: '',
     datepickerDisplay: false,
     spinLoading: true,
@@ -63,19 +63,15 @@ export default class idnex extends PureComponent {
   async componentDidMount () {
     const date = new Date ().toJSON ().slice (0, 10);
     try {
-      const resTimesheet = await axios.get (
-        `/TimeSheet?date=` + date,
-        axiosConfig
-      );
-      console.log (resTimesheet);
-      const resProjectType = await axios.get (
-        `/ValueHelp/GetTypeProject`,
-        axiosConfig
-      );
+      await this.props.timeSheet.TimesheetList (date);
+      await console.log (`did moun`, this.props.timeSheet.loading);
+      await console.log (`did moun`, this.props.timeSheet.timesheetList);
+      // const resTimesheet = await axios.get (
+      //   `/TimeSheet?date=` + date,
+      //   axiosConfig
+      // );
       await this.setState ({
-        dataSet: resTimesheet.data,
-        projectName: this.props.uiStore.projectName,
-        projectType: this.props.uiStore.projectType,
+        // dataSet: resTimesheet.data,
         spinLoading: false,
       });
     } catch (e) {
@@ -83,6 +79,7 @@ export default class idnex extends PureComponent {
     }
   }
   async componentWillMount () {
+    const date = new Date ().toJSON ().slice (0, 10);
     var data = await [];
     for (let i = 0; i <= 16; i++) {
       await data.push (i);
@@ -199,7 +196,6 @@ export default class idnex extends PureComponent {
   };
   render () {
     const {visible, loading, currentDate, display} = this.state;
-    console.log (`in dom`,this.state.projectType);
     return (
       <React.Fragment>
         <Spin spinning={this.state.spinLoading}>
@@ -299,7 +295,7 @@ export default class idnex extends PureComponent {
                     onBlur={this.onProjectBlur}
                   >
 
-                    {this.state.projectName.map ((item, key) => (
+                    {this.props.uiStore.projectName.map ((item, key) => (
                       <Option key={key} value={item.valueKey}>
                         {item.valueText}
                       </Option>
@@ -307,7 +303,6 @@ export default class idnex extends PureComponent {
                   </Select>
                 </div>
                 <div>
-                  {`dsa` + this.state.projectType}
                   <Select
                     style={{width: 200}}
                     placeholder="Project Type"
@@ -316,11 +311,11 @@ export default class idnex extends PureComponent {
                     onFocus={this.onTypeFocus}
                     onBlur={this.onTypeBlur}
                   >
-                    {/* {this.state.projectType.map ((item, key) => (
+                    {this.props.uiStore.projectName.map ((item, key) => (
                       <Option key={key} value={item.valueKey}>
                         {item.valueText}
                       </Option>
-                    ))} */}
+                    ))}
                   </Select>
                 </div>
                 <div>

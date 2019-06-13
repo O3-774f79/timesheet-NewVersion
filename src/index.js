@@ -11,6 +11,7 @@ import authStore from './stores/authStore';
 import commonStore from './stores/commonStore';
 import userStore from './stores/userStore';
 import uiStore from './stores/uiStore';
+import timeSheet from './stores/Timesheet';
 import inboxBenefitStore from './stores/inboxBenefitStore';
 
 const stores = {
@@ -19,6 +20,7 @@ const stores = {
   userStore,
   uiStore,
   inboxBenefitStore,
+  timeSheet,
 };
 
 // For easier debugging
