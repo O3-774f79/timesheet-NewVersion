@@ -1,8 +1,7 @@
 import axios from 'axios';
-import Auth from './stores/authStore';
 const axiosConfig = {withCredentials: true};
 
-const Login = async (user, pass) => {
+export const Login = async (user, pass) => {
   try {
     const dataRes = await axios.post (
       `/Login`,
@@ -17,5 +16,27 @@ const Login = async (user, pass) => {
     return false;
   }
 };
-
-export default {Login};
+const GetProjectName = async () => {
+  try {
+    const resProjectName = await axios.get (
+      `/Project/GetListActive`,
+      axiosConfig
+    );
+    return resProjectName.data;
+  } catch (e) {
+    return false;
+  }
+};
+const GetProjectType = async () => {
+  try {
+    const resProjectType = await axios.get (
+      `/ValueHelp/GetTypeProject`,
+      axiosConfig
+    );
+    console.log (`in service`, resProjectType.data);
+    return resProjectType.data;
+  } catch (e) {
+    return e;
+  }
+};
+export default {Login, GetProjectName, GetProjectType};

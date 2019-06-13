@@ -12,11 +12,16 @@ import {
   Divider,
 } from 'antd';
 import {CurrentDate, FomatDate} from '../../Helper.js';
+
 import axios from 'axios';
+import {observer, inject} from 'mobx-react';
+import {toJS} from 'mobx';
 const axiosConfig = {withCredentials: true};
 const Option = Select.Option;
 const {TextArea} = Input;
 
+@inject ('uiStore')
+@observer
 export default class idnex extends PureComponent {
   state = {
     term: {
@@ -58,15 +63,6 @@ export default class idnex extends PureComponent {
   async componentDidMount () {
     const date = new Date ().toJSON ().slice (0, 10);
     try {
-      await axios.post (
-        `/Login`,
-        {
-          username: 'nuttaphon@leaderplanet.co.th',
-          password: 'Admin',
-        },
-        axiosConfig
-      );
-
       const resTimesheet = await axios.get (
         `/TimeSheet?date=` + date,
         axiosConfig
@@ -76,14 +72,10 @@ export default class idnex extends PureComponent {
         `/ValueHelp/GetTypeProject`,
         axiosConfig
       );
-      const resProjectName = await axios.get (
-        `/Project/GetListActive`,
-        axiosConfig
-      );
       await this.setState ({
         dataSet: resTimesheet.data,
-        projectName: resProjectName.data,
-        projectType: resProjectType.data,
+        projectName: this.props.uiStore.projectName,
+        projectType: this.props.uiStore.projectType,
         spinLoading: false,
       });
     } catch (e) {
@@ -170,13 +162,13 @@ export default class idnex extends PureComponent {
           isSubmit: false,
           timeSheet: [
             {
-              dateTimeStamp: new Date ().toJSON ().slice (0, 10),
+              dateTimeStamp: this.state.datePicker,
               taskList: this.state.inputActivity,
             },
           ],
         },
       });
-      await console.log (JSON.stringify (this.state.dataSend));
+      await console.log (`sendPOST`, JSON.stringify (this.state.dataSend));
       const data = await axios.post (
         `/TimeSheet/Save`,
         this.state.dataSend,
@@ -207,6 +199,7 @@ export default class idnex extends PureComponent {
   };
   render () {
     const {visible, loading, currentDate, display} = this.state;
+    console.log (`in dom`,this.state.projectType);
     return (
       <React.Fragment>
         <Spin spinning={this.state.spinLoading}>
@@ -295,7 +288,6 @@ export default class idnex extends PureComponent {
                     disabled={this.state.datepickerDisplay}
                   />
                 </div>
-                {console.log (`projectname`, this.state.projectName)}
                 <div>
                   <Select
                     showSearch
@@ -306,14 +298,16 @@ export default class idnex extends PureComponent {
                     onFocus={this.onProjectFocus}
                     onBlur={this.onProjectBlur}
                   >
+
                     {this.state.projectName.map ((item, key) => (
-                      <Option key={key} value={item.projectCode}>
-                        {item.projectName}
+                      <Option key={key} value={item.valueKey}>
+                        {item.valueText}
                       </Option>
                     ))}
                   </Select>
                 </div>
                 <div>
+                  {`dsa` + this.state.projectType}
                   <Select
                     style={{width: 200}}
                     placeholder="Project Type"
@@ -322,11 +316,11 @@ export default class idnex extends PureComponent {
                     onFocus={this.onTypeFocus}
                     onBlur={this.onTypeBlur}
                   >
-                    {this.state.projectType.map ((item, key) => (
+                    {/* {this.state.projectType.map ((item, key) => (
                       <Option key={key} value={item.valueKey}>
                         {item.valueText}
                       </Option>
-                    ))}
+                    ))} */}
                   </Select>
                 </div>
                 <div>

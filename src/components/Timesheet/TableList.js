@@ -15,7 +15,6 @@ export default class TableList extends PureComponent {
   componentWillMount () {
     this.setState ({CurrentMonth: CurrentDate ().substring (3)});
   }
-
   render () {
     const dateFomat = d => {
       const {day, month, year} = FomatDate (d);

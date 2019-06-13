@@ -3,7 +3,7 @@ import React from 'react';
 import {inject, observer} from 'mobx-react';
 import LoginAlert from './Alert';
 
-@inject ('authStore', 'userStore')
+@inject ('authStore', 'userStore', 'uiStore')
 @withRouter
 @observer
 export default class Login extends React.Component {
@@ -19,8 +19,10 @@ export default class Login extends React.Component {
     await e.preventDefault ();
     await this.props.authStore.login ();
     (await this.props.userStore.authorize)
-      ? await this.props.history.replace ('/settings')
+      ? await this.props.history.replace ('/timesheet')
       : await this.props.history.replace ('/login');
+    await this.props.uiStore.ProjectNameFormService ();
+    await this.props.uiStore.ProjectTypeFormService ();
   };
   render () {
     const {values} = this.props.authStore;
