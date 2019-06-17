@@ -22,6 +22,7 @@ class SettingsForm extends React.Component {
       this.setState(newState);
     };
 
+
     this.submitForm = ev => {
       ev.preventDefault();
 
@@ -30,7 +31,8 @@ class SettingsForm extends React.Component {
         delete user.password;
       }
 
-      this.props.onSubmitForm(user);
+      // this.props.onSubmitForm(user);
+      this.props.userStore.Update();
     };
   }
 
@@ -38,7 +40,7 @@ class SettingsForm extends React.Component {
     if (this.props.userStore.currentUser) {
       Object.assign(this.state, {
         image: this.props.userStore.currentUser.image || '',
-        username: this.props.userStore.currentUser.username,
+        username: this.props.userStore.currentUser.employee.name,
         bio: this.props.userStore.currentUser.bio || '',
         email: this.props.userStore.currentUser.email
       });
@@ -120,10 +122,11 @@ class SettingsForm extends React.Component {
 @observer
 class Settings extends React.Component {
 
-  handleClickLogout = () =>
+  handleClickLogout = () =>{
     this.props.authStore.logout()
-      .then(() => this.props.history.replace('/'));
-
+    this.props.history.replace('/')
+      // .then(() => this.props.history.replace('/'));
+}
   render() {
 
     return (

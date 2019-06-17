@@ -12,6 +12,7 @@ export default class Login extends React.Component {
   }
   componentWillMount () {
     this.props.authStore.logout ();
+    
   }
   handleEmailChange = e => this.props.authStore.setEmail (e.target.value);
   handlePasswordChange = e => this.props.authStore.setPassword (e.target.value);

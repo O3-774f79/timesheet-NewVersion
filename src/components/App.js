@@ -1,6 +1,6 @@
 import Header from './Header';
 import React from 'react';
-import {Switch, Route, withRouter} from 'react-router-dom';
+import {Switch, Route, withRouter, Redirect} from 'react-router-dom';
 import {inject, observer} from 'mobx-react';
 import PrivateRoute from './PrivateRoute';
 

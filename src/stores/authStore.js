@@ -1,4 +1,4 @@
-import {observable, action} from 'mobx';
+import { observable, action } from 'mobx';
 import agent from '../agent';
 import userStore from './userStore';
 import commonStore from './commonStore';
@@ -10,66 +10,102 @@ class AuthStore {
     username: '',
     email: 'admin@leaderplanet.co.th',
     password: 'admin',
+    conpassword: '',
+    firstname: '',
+    lastname: '',
+    startworkingdaytext: '2019-04-01',
+    startworkingday: '2019-04-01',
+    telno: '',
+    roleID: '',
   };
 
-  @action setUsername (username) {
+  @action setUsername(username) {
     this.values.username = username;
   }
 
-  @action setEmail (email) {
+  @action setEmail(email) {
     this.values.email = email;
   }
 
-  @action setPassword (password) {
+  @action setPassword(password) {
     this.values.password = password;
   }
+  @action setConPassword(conpassword) {
+    this.values.conpassword = conpassword;
+  }
+  @action setFirstname(firstname) {
+    this.values.firstname = firstname;
+  }
+  @action setLastname(lastname) {
+    this.values.lastname = lastname;
+  }
+  @action setPhone(phone) {
+    this.values.telno = phone;
+  }
 
-  @action reset () {
+  @action reset() {
     this.values.username = '';
     this.values.email = '';
     this.values.password = '';
   }
-  @action async login () {
+  @action async login() {
     this.inProgress = true;
     this.errors = undefined;
-    const {email, password} = this.values;
+    const { email, password } = this.values;
     try {
-      const dataRes = await _API.Login (email, password);
-      await userStore.pullUser (dataRes, true);
+      const dataRes = await _API.Login(email, password);
+      await userStore.pullUser(dataRes, true);
       (await dataRes)
-        ? await userStore.errorPullUser (true)
-        : await userStore.errorPullUser (false);
-      await console.log (dataRes);
+        ? await userStore.errorPullUser(true)
+        : await userStore.errorPullUser(false);
+      await console.log(dataRes);
     } catch (e) {
-      await console.log (`login error :`, e);
+      await console.log(`login error :`, e);
       return e;
     }
   }
 
-  @action register () {
+  @action async register() {
     this.inProgress = true;
     this.errors = undefined;
-    return agent.Auth
-      .register (this.values.username, this.values.email, this.values.password)
-      .then (({user}) => commonStore.setToken (user.token))
-      .then (() => userStore.pullUser ())
-      .catch (
-        action (err => {
-          this.errors =
-            err.response && err.response.body && err.response.body.errors;
-          throw err;
-        })
-      )
-      .finally (
-        action (() => {
-          this.inProgress = false;
-        })
+    const {
+      email,
+      password,
+      conpassword,
+      firstname,
+      lastname,
+      startworkingdaytext,
+      startworkingday,
+      telno,
+      roleID,
+    } = this.values;
+    try {
+      const dataRes = await _API.Register(
+        email,
+        password,
+        conpassword,
+        firstname,
+        lastname,
+        startworkingdaytext,
+        startworkingday,
+        telno,
+        roleID,
       );
+      await userStore.pullUser(dataRes, true);
+      (await dataRes)
+        ? await userStore.errorPullUser(true)
+        : await userStore.errorPullUser(false);
+      await console.log(dataRes);
+    } catch (e) {
+      await console.log(`Register Error :`, e);
+      return e;
+    }
   }
 
-  @action logout () {
-    userStore.resetUser ();
+
+  @action logout() {
+    userStore.resetUser();
   }
 }
 
-export default new AuthStore ();
+export default new AuthStore();

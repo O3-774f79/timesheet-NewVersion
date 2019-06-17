@@ -16,6 +16,46 @@ export const Login = async (user, pass) => {
     return false;
   }
 };
+export const Register = async (
+  mail,
+  pass,
+  conpass,
+  fname,
+  lname,
+  Sworkdaytext,
+  Sworkday,
+  phone,
+  rID,
+) => {
+  try {
+    const dataRes = await axios.post (
+      `/Register`,
+      {
+        email: mail,
+        password: pass,
+        confirmPassword: conpass,
+        firstName: fname,
+        lastName : lname,
+        startWorkingDayText: Sworkdaytext,
+        startWorkingDay : Sworkday,
+        telNo : phone,
+        roleId : rID,
+
+
+      
+      },
+      axiosConfig
+    );
+    return dataRes.data;
+    
+  } catch (e) {
+    return false;
+  }
+};
+
+
+
+
 const GetProjectName = async () => {
   try {
     const resProjectName = await axios.get (
@@ -48,5 +88,10 @@ const GetTimeSheet = async (date) => {
   } catch (e) {
     return e;
   }
+
+
 };
-export default {Login, GetProjectName, GetProjectType, GetTimeSheet};
+
+
+
+export default {Login,Register, GetProjectName, GetProjectType, GetTimeSheet};

@@ -4,8 +4,10 @@ import {inject, observer} from 'mobx-react';
 import {toJS} from 'mobx';
 import {Divider, Icon} from 'antd';
 const LoggedOutView = props => {
+ 
   if (!props.currentUser) {
     return (
+      
       <ul className="nav navbar-nav pull-xs-right">
         <li className="nav-item">
           <Link to="/login" className="nav-link">
@@ -87,8 +89,8 @@ class Header extends React.Component {
         style={{backgroundColor: 'lightskyblue', marginBottom: 10}}
       >
         <div className="container">
-
-          <Link to="/" className="navbar-brand">
+          
+          <Link to="/inbox" className="navbar-brand">
             {this.props.commonStore.appName.toUpperCase ()}
           </Link>
           <LoggedOutView currentUser={this.props.userStore.currentUser} />
