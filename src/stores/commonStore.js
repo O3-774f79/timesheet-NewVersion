@@ -1,6 +1,6 @@
 import {observable, action, reaction} from 'mobx';
 class CommonStore {
-  @observable appName = 'LP-Benefit';
+  @observable appName = 'LP-Human Resources';
   @observable token = window.localStorage.getItem ('jwt');
   @observable appLoaded = false;
 
