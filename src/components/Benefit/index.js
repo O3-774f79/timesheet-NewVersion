@@ -3,8 +3,7 @@ import Benefit1 from './Benefit1';
 import Benefit2 from './Benefit2';
 import Benefit3 from './Benefit3';
 import Inbox from './inbox';
-import {Card, Form, Row, Col, Input, Button, Icon, Select} from 'antd';
-const {Option} = Select;
+import {Card, Input, Button, Icon, Select} from 'antd';
 
 const styles = {
   layout: {

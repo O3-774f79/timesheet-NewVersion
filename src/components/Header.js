@@ -1,8 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {inject, observer} from 'mobx-react';
-import {toJS} from 'mobx';
-import {Divider, Icon} from 'antd';
+import {Icon} from 'antd';
 const LoggedOutView = props => {
   if (!props.currentUser) {
     return (

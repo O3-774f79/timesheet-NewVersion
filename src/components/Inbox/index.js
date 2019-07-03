@@ -2,9 +2,6 @@ import React from 'react';
 import 'antd/dist/antd.css';
 import {Table, Divider, Tag, Modal, Button, Input, Icon} from 'antd';
 import {inject, observer} from 'mobx-react';
-import Benefit1 from '../Benefit/Benefit1';
-import Benefit2 from '../Benefit/Benefit2';
-import Navbar from '../Navbar';
 import ModalDisplay from '../Benefit/ModalDisplay';
 @inject ('inboxBenefitStore')
 @observer
