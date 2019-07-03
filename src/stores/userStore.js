@@ -18,7 +18,7 @@ class UserStore {
   @action resetUser () {
     this.authStatus = false;
     this.authorize = true;
-    this.currentUser;
+    this.currentUser = false
   }
 }
 

@@ -7,7 +7,6 @@ const superagent = superagentPromise (_superagent, global.Promise);
 
 const API_ROOT = 'https://conduit.productionready.io/api';
 
-const encode = encodeURIComponent;
 
 const handleErrors = err => {
   if (err && err.response && err.response.status === 401) {
@@ -60,8 +59,6 @@ const Auth = {
   save: user => requests.put ('/user', {user}),
 };
 
-const limit = (count, p) => `limit=${count}&offset=${p ? p * count : 0}`;
-const omitSlug = article => Object.assign ({}, article, {slug: undefined});
 
 const Profile = {
   get: username => requests.get (`/profiles/${username}`),

@@ -4,7 +4,6 @@ import {Switch, Route, withRouter} from 'react-router-dom';
 import {inject, observer} from 'mobx-react';
 import PrivateRoute from './PrivateRoute';
 
-import Home from './Home';
 import Login from './Login';
 import Register from './Register';
 import Settings from './Settings';

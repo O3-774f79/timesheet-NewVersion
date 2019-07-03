@@ -20,7 +20,7 @@ export default class Register extends React.Component {
   };
 
   render() {
-    const { values, errors, inProgress } = this.props.authStore;
+    const { values, inProgress } = this.props.authStore;
 
     return (
       <div className="auth-page">

@@ -1,4 +1,4 @@
-import {observable, action, toJS} from 'mobx';
+import {observable, action} from 'mobx';
 import _API from '../_API';
 class UiStore {
   @observable loading = false;

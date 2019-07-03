@@ -78,7 +78,6 @@ export default class idnex extends PureComponent {
     }
   }
   async componentWillMount () {
-    const date = new Date ().toJSON ().slice (0, 10);
     var data = await [];
     for (let i = 0; i <= 16; i++) {
       await data.push (i);

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Input, Button, Icon, Select, Upload, message, Radio} from 'antd';
+import {Input, Button, Icon, Select, Upload, message} from 'antd';
 import {DatePicker} from 'antd';
 import {inject, observer} from 'mobx-react';
 
